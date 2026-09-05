@@ -1,0 +1,64 @@
+*{
+    box-sizing: border-box;
+}
+
+.header{
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+#logo{
+    margin:3px;
+    height:60px;
+    width:150px;
+}
+
+.Starting{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap:5px;
+}
+.ending{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#bell{
+    height:60px;
+    width:60px;
+}
+
+#user_logo{
+    height:60px;
+    height:60px;
+    border-radius: 50%;
+}
+
+#user_input{
+
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap:5px;
+}
+
+#search_bar{
+    width:40vw;
+    margin:5px;
+    margin-left: 20px;
+    border: 1px solid #ccc;      /* Adds a soft border line */
+    border-radius: 20px 20px 20px 20px;  /* Curves only the left corners */
+    padding-left: 15px;
+}
+
+#search_button{
+    width:100px;
+    margin:5px;
+    border-radius: 20px 20px 20px 20px;
+}

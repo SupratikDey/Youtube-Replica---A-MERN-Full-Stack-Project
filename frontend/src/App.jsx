@@ -1,7 +1,10 @@
+import Header from "./Components/Header.jsx"; // default export
+
 function App(){
   return(
     <div>
-        <h1>Hello I am from App component</h1>
+      <Header />
+      <h1>Hello I am from App</h1>
     </div>
   )
 }
