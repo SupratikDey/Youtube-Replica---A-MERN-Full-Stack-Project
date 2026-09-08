@@ -1,0 +1,326 @@
+.channel-page {
+    padding-top: 60px;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+}
+
+/* Create channel page */
+.create-channel-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    padding: 20px;
+}
+
+.create-channel-container {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.create-channel-container h2 {
+    margin-bottom: 8px;
+    color: #030303;
+}
+
+.create-channel-container p {
+    color: #606060;
+    margin-bottom: 24px;
+}
+
+.create-channel-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-channel-btn {
+    padding: 12px;
+    background-color: #065fd4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.create-channel-btn:hover:not(:disabled) {
+    background-color: #054aa8;
+}
+
+.create-channel-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Channel header */
+.channel-header {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+
+.channel-banner {
+    width: 100%;
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.channel-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.channel-info {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.channel-name {
+    font-size: 28px;
+    font-weight: 500;
+    color: #030303;
+}
+
+.channel-description {
+    color: #606060;
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.channel-stats {
+    color: #606060;
+    font-size: 14px;
+}
+
+.channel-stats span {
+    margin-right: 4px;
+}
+
+/* Channel content */
+.channel-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.channel-videos-section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.upload-btn {
+    padding: 8px 16px;
+    background-color: #065fd4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-btn:hover {
+    background-color: #054aa8;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.video-item {
+    position: relative;
+}
+
+.video-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.video-action-btn {
+    padding: 4px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.video-action-btn.edit {
+    background-color: #f0f0f0;
+    color: #030303;
+}
+
+.video-action-btn.edit:hover {
+    background-color: #e0e0e0;
+}
+
+.video-action-btn.delete {
+    background-color: #fde7e9;
+    color: #d93025;
+}
+
+.video-action-btn.delete:hover {
+    background-color: #fcccd0;
+}
+
+/* Edit video form */
+.edit-video-form {
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    border: 1px solid #ddd;
+}
+
+.edit-video-form h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.edit-video-form .form-group {
+    margin-bottom: 10px;
+}
+
+.edit-video-form .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.edit-video-form .form-group input,
+.edit-video-form .form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.edit-video-form .form-group input:focus,
+.edit-video-form .form-group textarea:focus {
+    outline: none;
+    border-color: #065fd4;
+}
+
+.edit-video-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.save-btn {
+    padding: 6px 16px;
+    background-color: #065fd4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #054aa8;
+}
+
+.cancel-btn {
+    padding: 6px 16px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* No videos */
+.no-videos {
+    text-align: center;
+    padding: 40px 0;
+    color: #606060;
+}
+
+.no-videos .upload-btn {
+    margin-top: 12px;
+}
+
+/* Channel not found */
+.channel-not-found {
+    text-align: center;
+    padding: 80px 20px;
+    color: #606060;
+}
+
+.channel-not-found h2 {
+    font-size: 28px;
+    color: #030303;
+    margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .channel-name {
+        font-size: 24px;
+    }
+    
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .create-channel-container {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .channel-header {
+        padding: 12px;
+    }
+    
+    .channel-name {
+        font-size: 20px;
+    }
+    
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .create-channel-container {
+        padding: 16px;
+    }
+}
