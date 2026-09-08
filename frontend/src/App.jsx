@@ -1,122 +1,85 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
-function App() {
-  const [count, setCount] = useState(0)
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import VideoPage from './pages/VideoPage';
+import ChannelPage from './pages/ChannelPage';
+import Header from './components/Header';
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+// I create this component to protect pages that should only be accessible
+// when the user is logged in.
+const ProtectedRoute = ({ children }) => {
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+    // I get the authentication status and loading status from my AuthContext.
+    const { isAuthenticated, loading } = useAuth();
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    // While I am checking whether the user is logged in, I show a loading message.
+    if (loading) return <div>Loading...</div>;
+
+    // If the user is not logged in, I redirect them to the login page.
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    // If the user is logged in, I allow the requested page to be displayed.
+    return children;
+};
+
+
+function AppContent() {
+    return (
+        <Router>
+
+            <div className="app">
+
+                {/* I display the Header across my application. */}
+                <Header />
+
+                <Routes>
+
+                    {/* I display Home when the user visits the root URL "/". */}
+                    <Route path="/" element={<Home />} />
+
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+
+                    {/* :id is a dynamic value that identifies a particular video. */}
+                    <Route path="/video/:id" element={<VideoPage />} />
+
+                    {/* :id identifies a particular channel. */}
+                    <Route path="/channel/:id" element={<ChannelPage />} />
+
+                    {/* I protect My Channel so only logged-in users can access it. */}
+                    <Route
+                        path="/my-channel"
+                        element={
+                            <ProtectedRoute>
+                                <ChannelPage />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                </Routes>
+            </div>
+
+        </Router>
+    );
 }
 
-export default App
+
+function App() {
+
+    // I wrap my application with AuthProvider so that
+    // authentication information can be accessed by my components.
+    return (
+        <AuthProvider>
+            <AppContent />
+        </AuthProvider>
+    );
+}
+
+export default App;
