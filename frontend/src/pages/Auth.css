@@ -1,0 +1,127 @@
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    padding-top: 80px;
+}
+
+.auth-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-container h1 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #030303;
+}
+
+.auth-subtitle {
+    color: #606060;
+    margin-bottom: 24px;
+}
+
+.auth-error {
+    background-color: #fde7e9;
+    color: #d93025;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.auth-success {
+    background-color: #e6f4ea;
+    color: #1e7e34;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #030303;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #065fd4;
+}
+
+.auth-btn {
+    padding: 12px;
+    background-color: #065fd4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 8px;
+}
+
+.auth-btn:hover:not(:disabled) {
+    background-color: #054aa8;
+}
+
+.auth-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.auth-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #606060;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #065fd4;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 24px;
+    }
+    
+    .auth-container h1 {
+        font-size: 24px;
+    }
+}
