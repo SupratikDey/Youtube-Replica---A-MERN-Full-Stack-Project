@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "6aa12f91c57bf999f4d03c60"
+  },
+  "channelName": "Learning with Me",
+  "owner": {
+    "$oid": "6aa12f3dc57bf999f4d03c5f"
+  },
+  "description": "Learn Full stack with me",
+  "channelBanner": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ11-RajKmwf7odoa-3ov-45k4nKoGj7VlJJsvhnKNMa8zJ0yle",
+  "subscribers": 0,
+  "videos": [
+    {
+      "$oid": "6aa13b13bf1286db68b80f48"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-09-09T10:06:09.675Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6aa14225bf1286db68b80f4b"
+  },
+  "channelName": "Nature",
+  "owner": {
+    "$oid": "6aa141fabf1286db68b80f4a"
+  },
+  "description": "Tell the beauty of nature around us",
+  "channelBanner": "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
+  "subscribers": 0,
+  "videos": [
+    {
+      "$oid": "6aa14273bf1286db68b80f4c"
+    },
+    {
+      "$oid": "6aa142f0bf1286db68b80f4e"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-09-09T11:25:25.073Z"
+  },
+  "__v": 2
+}]

@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "6aa12199c57bf999f4d03c5e"
+  },
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "$2b$10$r03bab27oAkFWlBi8jA3w.mxDntdEVUDHyD7tpEQvsWqYi0DzUxqy",
+  "createdAt": {
+    "$date": "2026-09-09T09:06:33.633Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6aa12f3dc57bf999f4d03c5f"
+  },
+  "username": "SPD",
+  "email": "abc@gmail.com",
+  "password": "$2b$10$zOD65WDh7T4oQig6af2CL.Uhdf18LxkzX7t7JSS7wq.GU98HO9OYe",
+  "createdAt": {
+    "$date": "2026-09-09T10:04:45.562Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6aa1415fbf1286db68b80f49"
+  },
+  "username": "Supratik",
+  "email": "abc123@gmail.com",
+  "password": "$2b$10$er42/yvMk.Z.PZV6xMUJe.gp5AG6v5T25V5ZN9Gira3pztDaeZTge",
+  "createdAt": {
+    "$date": "2026-09-09T11:22:07.187Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6aa141fabf1286db68b80f4a"
+  },
+  "username": "Supratik1",
+  "email": "abc1234@gmail.com",
+  "password": "$2b$10$57tmc6HitNqJRxn7R.8Ro.L5/AljFqJsGtrmchSMokNqlhI2etaCG",
+  "createdAt": {
+    "$date": "2026-09-09T11:24:42.375Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6aa147d0bf1286db68b80f4f"
+  },
+  "username": "demouser",
+  "email": "demo@test.com",
+  "password": "$2b$10$VvNsF.74lzY68uRGaKpQoOEWlbC3CpZycu0A6Eh0iKZVnAekfnpyi",
+  "createdAt": {
+    "$date": "2026-09-09T11:49:36.286Z"
+  },
+  "__v": 0
+}]

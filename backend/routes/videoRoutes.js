@@ -43,7 +43,6 @@ router.get('/:videoId', async (req, res) => {
     }
 });
 
-// CREATE VIDEO
 router.post('/', authenticate, async (req, res) => {
     try {
         const { title, description, thumbnailUrl, videoUrl, category } = req.body;
@@ -82,7 +81,6 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
-// UPDATE VIDEO
 router.put('/:videoId', authenticate, async (req, res) => {
     try {
         const video = await Video.findById(req.params.videoId);
@@ -115,7 +113,6 @@ router.put('/:videoId', authenticate, async (req, res) => {
     }
 });
 
-// LIKE VIDEO
 router.post('/:videoId/like', authenticate, async (req, res) => {
     try {
         const video = await Video.findById(req.params.videoId);
