@@ -21,7 +21,6 @@ function Comment({ comment, currentUser, onDelete, onUpdate }) {
         }
     };
 
-    // Format date
     const formatDate = (date) => {
         const now = new Date();
         const commentDate = new Date(date);

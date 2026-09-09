@@ -23,7 +23,6 @@ function Header() {
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
-        // This will be used by Sidebar component
         window.dispatchEvent(new CustomEvent('toggleSidebar', { 
             detail: { open: !sidebarOpen } 
         }));

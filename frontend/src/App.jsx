@@ -37,24 +37,19 @@ function AppContent() {
 
             <div className="app">
 
-                {/* I display the Header across my application. */}
                 <Header />
 
                 <Routes>
 
-                    {/* I display Home when the user visits the root URL "/". */}
                     <Route path="/" element={<Home />} />
 
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
 
-                    {/* :id is a dynamic value that identifies a particular video. */}
                     <Route path="/video/:id" element={<VideoPage />} />
 
-                    {/* :id identifies a particular channel. */}
                     <Route path="/channel/:id" element={<ChannelPage />} />
 
-                    {/* I protect My Channel so only logged-in users can access it. */}
                     <Route
                         path="/my-channel"
                         element={

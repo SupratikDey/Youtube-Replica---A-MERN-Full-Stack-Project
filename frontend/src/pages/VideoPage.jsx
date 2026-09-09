@@ -92,11 +92,10 @@ function VideoPage() {
         setCommentLoading(false);
     };
 
-    // Delete comment (passed to Comment component)
+    // Delete comment 
     const handleDeleteComment = async (commentId) => {
         try {
             await axios.delete(`http://localhost:5000/api/comments/${commentId}`);
-            // Remove comment from state
             setVideo({
                 ...video,
                 comments: video.comments.filter(c => c._id !== commentId)
@@ -142,7 +141,6 @@ function VideoPage() {
     return (
         <div className="video-page">
             <div className="video-page-main">
-                {/* Video player */}
                 <div className="video-player-wrapper">
                     <video 
                         className="video-player" 
@@ -195,7 +193,6 @@ function VideoPage() {
                         Comments ({video.comments?.length || 0})
                     </h3>
 
-                    {/* Add comment form */}
                     {isAuthenticated ? (
                         <form className="comment-form" onSubmit={handleAddComment}>
                             <input

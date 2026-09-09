@@ -47,7 +47,6 @@ function Home() {
         fetchVideos();
     }, [searchQuery, categoryQuery]);
 
-    // Set selected category from URL
     useEffect(() => {
         if (categoryQuery) {
             setSelectedCategory(categoryQuery);
@@ -56,12 +55,9 @@ function Home() {
         }
     }, [categoryQuery]);
 
-    // Handle category filter click
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
-        // Update URL to reflect category
         window.history.pushState({}, '', `/?category=${category}`);
-        // Trigger re-fetch
         window.dispatchEvent(new Event('popstate'));
     };
 
@@ -73,7 +69,6 @@ function Home() {
         <div className="home">
             <Sidebar />
             <div className="home-main">
-                {/* Filter buttons */}
                 <div className="filter-bar">
                     {categories.map((cat, index) => (
                         <button

@@ -24,8 +24,8 @@ function Sidebar() {
         <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <div className="sidebar-content">
                 <ul className="sidebar-menu">
-                    <li><Link to="/">🏠 Home</Link></li>
-                    <li><Link to="/my-channel">📺 My Channel</Link></li>
+                    <li><Link to="/"> Home</Link></li>
+                    <li><Link to="/my-channel"> My Channel</Link></li>
                 </ul>
                 
                 <div className="sidebar-categories">
