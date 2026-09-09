@@ -1,9 +1,3 @@
-Yes — I misunderstood your request. You wanted me to **rephrase the entire README using the content from the `.md` file you uploaded**, not just rewrite the database section.
-
-I’ll keep the **same information, features, setup steps, project structure, API endpoints, database instructions, credentials, scripts, etc.**, but make the wording more natural, concise, and suitable for an actual student capstone project README. I’ll also avoid unnecessary claims or overly professional wording. The original document contains all of these sections and details. 
-
-Here is the rewritten version:
-
 ````markdown
 # 🎬 YouTube Clone – MERN Stack
 
@@ -323,29 +317,6 @@ After importing the database, you can use the following account to test the appl
 
 You can also create a new account through the registration page.
 
----
-
-## 🎬 Video Demo
-
-A video demonstration of the project can be added here:
-
-```text
-[Video Demo Link]
-```
-
-The demonstration can cover:
-
-* User registration and login
-* Backend API testing
-* Channel creation
-* Video upload
-* Search and filtering
-* Like/dislike functionality
-* Comment operations
-* Responsive design
-
----
-
 ## 🔐 Environment Variables
 
 The backend requires the following environment variables:
@@ -432,10 +403,10 @@ This project was built using:
 ## 🔗 Project Links
 
 **GitHub Repository:**
-Add your GitHub repository link here.
+https://github.com/SupratikDey/Youtube-Replica---A-MERN-Full-Stack-Project
 
 **Video Demo:**
-(https://drive.google.com/file/d/1NUb8oeT81VUy-s6qgePN9K5QPfLQjgZQ/view?usp=sharing)
+https://drive.google.com/file/d/1NUb8oeT81VUy-s6qgePN9K5QPfLQjgZQ/view?usp=sharing
 
 ---
 
