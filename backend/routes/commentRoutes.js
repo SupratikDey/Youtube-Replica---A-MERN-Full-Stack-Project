@@ -1,23 +1,22 @@
-const express = require('express');
-const Comment = require('../models/Comment');
-const Video = require('../models/Video');
-const { authenticate } = require('../middleware/auth');
+import express from 'express';
+import Comment from '../models/Comment.js';
+import Video from '../models/Video.js';
+import { authenticate } from '../middleware/auth.js';
+
 const router = express.Router();
 
-// ADD COMMENT - Only logged in users
+// ADD COMMENT
 router.post('/', authenticate, async (req, res) => {
     try {
         const { text, videoId } = req.body;
         const userId = req.user.userId;
         const username = req.user.username;
 
-        // Check if video exists
         const video = await Video.findById(videoId);
         if (!video) {
             return res.status(404).json({ message: 'Video not found' });
         }
 
-        // Create comment
         const comment = new Comment({
             userId,
             username,
@@ -27,11 +26,9 @@ router.post('/', authenticate, async (req, res) => {
 
         await comment.save();
 
-        // Add comment to video's comments array
         video.comments.push(comment._id);
         await video.save();
 
-        // Return the comment with user info
         const populatedComment = await Comment.findById(comment._id)
             .populate('userId', 'username');
 
@@ -45,13 +42,13 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
-// GET COMMENTS FOR A VIDEO
+// GET COMMENTS FOR VIDEO
 router.get('/video/:videoId', async (req, res) => {
     try {
-        const comments = await Comment.find({ 
-            videoId: req.params.videoId 
+        const comments = await Comment.find({
+            videoId: req.params.videoId
         })
-        .sort({ timestamp: -1 }) // Newest first
+        .sort({ timestamp: -1 })
         .populate('userId', 'username');
 
         res.json(comments);
@@ -61,7 +58,7 @@ router.get('/video/:videoId', async (req, res) => {
     }
 });
 
-// UPDATE COMMENT - Only comment owner
+// UPDATE COMMENT
 router.put('/:commentId', authenticate, async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.commentId);
@@ -70,10 +67,9 @@ router.put('/:commentId', authenticate, async (req, res) => {
             return res.status(404).json({ message: 'Comment not found' });
         }
 
-        // Check if user owns this comment
         if (comment.userId.toString() !== req.user.userId) {
-            return res.status(403).json({ 
-                message: 'You don\'t own this comment' 
+            return res.status(403).json({
+                message: 'You don\'t own this comment'
             });
         }
 
@@ -90,7 +86,7 @@ router.put('/:commentId', authenticate, async (req, res) => {
     }
 });
 
-// DELETE COMMENT - Only comment owner
+// DELETE COMMENT
 router.delete('/:commentId', authenticate, async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.commentId);
@@ -99,19 +95,16 @@ router.delete('/:commentId', authenticate, async (req, res) => {
             return res.status(404).json({ message: 'Comment not found' });
         }
 
-        // Check if user owns this comment
         if (comment.userId.toString() !== req.user.userId) {
-            return res.status(403).json({ 
-                message: 'You don\'t own this comment' 
+            return res.status(403).json({
+                message: 'You don\'t own this comment'
             });
         }
 
-        // Remove comment from video's comments array
         await Video.findByIdAndUpdate(comment.videoId, {
             $pull: { comments: comment._id }
         });
 
-        // Delete the comment
         await comment.deleteOne();
 
         res.json({ message: 'Comment deleted!' });
@@ -121,4 +114,4 @@ router.delete('/:commentId', authenticate, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
