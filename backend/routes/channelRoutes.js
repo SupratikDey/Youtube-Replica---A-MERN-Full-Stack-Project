@@ -44,14 +44,15 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
-// GET CHANNEL BY ID
-router.get('/:channelId', async (req, res) => {
+// GET USER'S CHANNEL
+router.get('/my-channel', authenticate, async (req, res) => {
     try {
-        const channel = await Channel.findById(req.params.channelId)
-            .populate('videos');
+        const channel = await Channel.findOne({ owner: req.user.userId })
+            .populate('videos')
+            .populate('owner', '_id username');
 
         if (!channel) {
-            return res.status(404).json({ message: 'Channel not found' });
+            return res.status(404).json({ message: 'You don\'t have a channel yet' });
         }
 
         res.json(channel);
@@ -61,14 +62,15 @@ router.get('/:channelId', async (req, res) => {
     }
 });
 
-// GET USER'S CHANNEL
-router.get('/my-channel', authenticate, async (req, res) => {
+// GET CHANNEL BY ID
+router.get('/:channelId', async (req, res) => {
     try {
-        const channel = await Channel.findOne({ owner: req.user.userId })
-            .populate('videos');
+        const channel = await Channel.findById(req.params.channelId)
+            .populate('videos')
+            .populate('owner', '_id username');
 
         if (!channel) {
-            return res.status(404).json({ message: 'You don\'t have a channel yet' });
+            return res.status(404).json({ message: 'Channel not found' });
         }
 
         res.json(channel);
