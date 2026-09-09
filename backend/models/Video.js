@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const videoSchema = new mongoose.Schema({
     title: {
@@ -11,11 +11,11 @@ const videoSchema = new mongoose.Schema({
     },
     thumbnailUrl: {
         type: String,
-        required: true // URL to the thumbnail image
+        required: true
     },
     videoUrl: {
         type: String,
-        required: true // URL to the actual video
+        required: true
     },
     channelId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -23,7 +23,7 @@ const videoSchema = new mongoose.Schema({
         required: true
     },
     uploader: {
-        type: String, // Store the uploader's name directly
+        type: String,
         required: true
     },
     views: {
@@ -53,4 +53,4 @@ const videoSchema = new mongoose.Schema({
 });
 
 const Video = mongoose.model('Video', videoSchema);
-module.exports = Video;
+export default Video;

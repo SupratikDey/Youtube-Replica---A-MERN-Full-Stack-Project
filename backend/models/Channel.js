@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const channelSchema = new mongoose.Schema({
     channelName: {
@@ -7,24 +7,24 @@ const channelSchema = new mongoose.Schema({
         unique: true
     },
     owner: {
-        type: mongoose.Schema.Types.ObjectId, // References User collection
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     description: {
         type: String,
-        default: '' // Can be empty initially
+        default: ''
     },
     channelBanner: {
         type: String,
-        default: '' // URL to banner image
+        default: ''
     },
     subscribers: {
         type: Number,
         default: 0
     },
     videos: [{
-        type: mongoose.Schema.Types.ObjectId, // why not to use string?
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Video'
     }],
     createdAt: {
@@ -34,4 +34,4 @@ const channelSchema = new mongoose.Schema({
 });
 
 const Channel = mongoose.model('Channel', channelSchema);
-module.exports = Channel;
+export default Channel;
