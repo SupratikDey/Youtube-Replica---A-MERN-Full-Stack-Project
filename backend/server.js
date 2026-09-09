@@ -7,6 +7,16 @@ import channelRoutes from './routes/channelRoutes.js';
 import videoRoutes from './routes/videoRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 
+process.on('uncaughtException', (err) => {
+    console.log('uncaught error:', err);
+    console.log('Stack trace:', err.stack);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('🚨 UNHANDLED REJECTION:', reason);
+    console.log('Stack trace:', reason.stack);
+});
+
 dotenv.config();
 
 const app = express();

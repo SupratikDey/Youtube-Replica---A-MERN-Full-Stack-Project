@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import VideoPage from './pages/VideoPage';
 import ChannelPage from './pages/ChannelPage';
 import Header from './components/Header';
+import UploadVideo from './pages/UploadVideo';
 
 
 // I create this component to protect pages that should only be accessible
@@ -62,6 +63,8 @@ function AppContent() {
                             </ProtectedRoute>
                         }
                     />
+
+                    <Route path="/upload" element={ <ProtectedRoute><UploadVideo /></ProtectedRoute> }/>
 
                 </Routes>
             </div>
