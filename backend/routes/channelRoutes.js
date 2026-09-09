@@ -1,28 +1,27 @@
-const express = require('express');
-const Channel = require('../models/Channel');
-const Video = require('../models/Video');
-const { authenticate } = require('../middleware/auth');
+import express from 'express';
+import Channel from '../models/Channel.js';
+import Video from '../models/Video.js';
+import { authenticate } from '../middleware/auth.js';
+
 const router = express.Router();
 
-// CREATE CHANNEL - Only for logged in users
+// CREATE CHANNEL
 router.post('/', authenticate, async (req, res) => {
     try {
         const { channelName, description, channelBanner } = req.body;
-        const userId = req.user.userId; // From the JWT token
+        const userId = req.user.userId;
 
-        // Check if user already has a channel
         const existingChannel = await Channel.findOne({ owner: userId });
         if (existingChannel) {
-            return res.status(400).json({ 
-                message: 'You already have a channel!' 
+            return res.status(400).json({
+                message: 'You already have a channel!'
             });
         }
 
-        // Check if channel name is taken
         const nameTaken = await Channel.findOne({ channelName });
         if (nameTaken) {
-            return res.status(400).json({ 
-                message: 'Channel name already taken' 
+            return res.status(400).json({
+                message: 'Channel name already taken'
             });
         }
 
@@ -45,10 +44,11 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
+// GET CHANNEL BY ID
 router.get('/:channelId', async (req, res) => {
     try {
         const channel = await Channel.findById(req.params.channelId)
-            .populate('videos'); // This fills in the video details
+            .populate('videos');
 
         if (!channel) {
             return res.status(404).json({ message: 'Channel not found' });
@@ -61,6 +61,7 @@ router.get('/:channelId', async (req, res) => {
     }
 });
 
+// GET USER'S CHANNEL
 router.get('/my-channel', authenticate, async (req, res) => {
     try {
         const channel = await Channel.findOne({ owner: req.user.userId })
@@ -77,16 +78,17 @@ router.get('/my-channel', authenticate, async (req, res) => {
     }
 });
 
+// DELETE VIDEO FROM CHANNEL
 router.delete('/:channelId/videos/:videoId', authenticate, async (req, res) => {
     try {
-        const channel = await Channel.findOne({ 
+        const channel = await Channel.findOne({
             _id: req.params.channelId,
-            owner: req.user.userId // Make sure user owns this channel
+            owner: req.user.userId
         });
 
         if (!channel) {
-            return res.status(404).json({ 
-                message: 'Channel not found or you don\'t own it' 
+            return res.status(404).json({
+                message: 'Channel not found or you don\'t own it'
             });
         }
 
@@ -94,7 +96,9 @@ router.delete('/:channelId/videos/:videoId', authenticate, async (req, res) => {
             videoId => videoId.toString() !== req.params.videoId
         );
         await channel.save();
+
         await Video.findByIdAndDelete(req.params.videoId);
+
         res.json({ message: 'Video deleted successfully' });
 
     } catch (error) {
@@ -102,4 +106,4 @@ router.delete('/:channelId/videos/:videoId', authenticate, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

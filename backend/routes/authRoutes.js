@@ -1,72 +1,76 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import User from '../models/User.js';
+
 const router = express.Router();
 
-// REGISTER - Create new user account
+// REGISTER
 router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        // Check if user already exists
-        const existingUser = await User.findOne({ 
-            $or: [{ username }, { email }] 
+        const existingUser = await User.findOne({
+            $or: [{ username }, { email }]
         });
-        
+
         if (existingUser) {
-            return res.status(400).json({ 
-                message: 'Username or email already exists' 
+            return res.status(400).json({
+                message: 'Username or email already exists'
             });
         }
 
-        // Create new user
-        const user = new User({ username, email, password });
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const user = new User({
+            username,
+            email,
+            password: hashedPassword
+        });
+
         await user.save();
 
-        // Return success (don't return password)
-        res.status(201).json({ 
+        res.status(201).json({
             message: 'User created successfully! Please login.',
-            user: { 
-                id: user._id, 
-                username: user.username, 
-                email: user.email 
-            } 
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email
+            }
         });
-        
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// LOGIN - Authenticate user
+// LOGIN
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
 
-        // Find user by username
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Check password
         const isMatch = await user.comparePassword(password);
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Create JWT token
         const token = jwt.sign(
-            { 
-                userId: user._id, 
+            {
+                userId: user._id,
                 username: user.username,
-                email: user.email 
+                email: user.email
             },
             process.env.JWT_SECRET,
-            { expiresIn: '7d' } // Token expires in 7 days
+            { expiresIn: '7d' }
         );
 
-        // Send back token and user info
         res.json({
             message: 'Login successful!',
             token,
@@ -82,4 +86,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

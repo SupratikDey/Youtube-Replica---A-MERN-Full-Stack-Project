@@ -1,15 +1,16 @@
-const express = require('express');
-const Video = require('../models/Video');
-const Channel = require('../models/Channel');
-const { authenticate } = require('../middleware/auth');
+import express from 'express';
+import Video from '../models/Video.js';
+import Channel from '../models/Channel.js';
+import { authenticate } from '../middleware/auth.js';
+
 const router = express.Router();
 
-// GET ALL VIDEOS - For homepage
+// GET ALL VIDEOS
 router.get('/', async (req, res) => {
     try {
         const videos = await Video.find()
-            .sort({ uploadDate: -1 }) // Newest first
-            .populate('channelId'); // Get channel details
+            .sort({ uploadDate: -1 })
+            .populate('channelId');
 
         res.json(videos);
 
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// get particular video
+// GET SINGLE VIDEO
 router.get('/:videoId', async (req, res) => {
     try {
         const video = await Video.findById(req.params.videoId)
@@ -32,7 +33,6 @@ router.get('/:videoId', async (req, res) => {
             return res.status(404).json({ message: 'Video not found' });
         }
 
-        // Increment view count
         video.views += 1;
         await video.save();
 
@@ -43,18 +43,17 @@ router.get('/:videoId', async (req, res) => {
     }
 });
 
-// CREATE VIDEO - Only channel owner
+// CREATE VIDEO
 router.post('/', authenticate, async (req, res) => {
     try {
         const { title, description, thumbnailUrl, videoUrl, category } = req.body;
         const userId = req.user.userId;
         const username = req.user.username;
 
-        // Find user's channel
         const channel = await Channel.findOne({ owner: userId });
         if (!channel) {
-            return res.status(400).json({ 
-                message: 'Create a channel first before uploading videos!' 
+            return res.status(400).json({
+                message: 'Create a channel first before uploading videos!'
             });
         }
 
@@ -83,6 +82,7 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
+// UPDATE VIDEO
 router.put('/:videoId', authenticate, async (req, res) => {
     try {
         const video = await Video.findById(req.params.videoId);
@@ -91,15 +91,13 @@ router.put('/:videoId', authenticate, async (req, res) => {
             return res.status(404).json({ message: 'Video not found' });
         }
 
-        // Check if user owns this video
         const channel = await Channel.findById(video.channelId);
         if (channel.owner.toString() !== req.user.userId) {
-            return res.status(403).json({ 
-                message: 'You don\'t have permission to edit this video' 
+            return res.status(403).json({
+                message: 'You don\'t have permission to edit this video'
             });
         }
 
-        // Update only fields that are provided
         const { title, description, category } = req.body;
         if (title) video.title = title;
         if (description) video.description = description;
@@ -128,10 +126,10 @@ router.post('/:videoId/like', authenticate, async (req, res) => {
         video.likes += 1;
         await video.save();
 
-        res.json({ 
-            message: 'Liked!', 
+        res.json({
+            message: 'Liked!',
             likes: video.likes,
-            dislikes: video.dislikes 
+            dislikes: video.dislikes
         });
 
     } catch (error) {
@@ -139,6 +137,7 @@ router.post('/:videoId/like', authenticate, async (req, res) => {
     }
 });
 
+// DISLIKE VIDEO
 router.post('/:videoId/dislike', authenticate, async (req, res) => {
     try {
         const video = await Video.findById(req.params.videoId);
@@ -149,10 +148,10 @@ router.post('/:videoId/dislike', authenticate, async (req, res) => {
         video.dislikes += 1;
         await video.save();
 
-        res.json({ 
-            message: 'Disliked!', 
+        res.json({
+            message: 'Disliked!',
             likes: video.likes,
-            dislikes: video.dislikes 
+            dislikes: video.dislikes
         });
 
     } catch (error) {
@@ -160,10 +159,10 @@ router.post('/:videoId/dislike', authenticate, async (req, res) => {
     }
 });
 
+// SEARCH VIDEOS
 router.get('/search/:query', async (req, res) => {
     try {
         const searchQuery = req.params.query;
-        // Case-insensitive search using regex
         const videos = await Video.find({
             title: { $regex: searchQuery, $options: 'i' }
         }).populate('channelId');
@@ -175,6 +174,7 @@ router.get('/search/:query', async (req, res) => {
     }
 });
 
+// GET VIDEOS BY CATEGORY
 router.get('/category/:category', async (req, res) => {
     try {
         const videos = await Video.find({
@@ -188,4 +188,4 @@ router.get('/category/:category', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
