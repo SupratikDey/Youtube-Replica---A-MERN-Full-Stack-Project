@@ -1,20 +1,22 @@
-// Importing required packages
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import authRoutes from './routes/authRoutes.js';
+import channelRoutes from './routes/channelRoutes.js';
+import videoRoutes from './routes/videoRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
 
-const authRoutes = require('./routes/authRoutes');
-const channelRoutes = require('./routes/channelRoutes');
-const videoRoutes = require('./routes/videoRoutes');
-const commentRoutes = require('./routes/commentRoutes');
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
+// Logging middleware
 app.use((req, res, next) => {
     console.log(`Method: ${req.method}`);
     console.log(`URL: ${req.url}`);
@@ -24,16 +26,18 @@ app.use((req, res, next) => {
     next();
 });
 
-// Default route to check if server is running
+// Default route
 app.get("/", (req, res) => {
-    res.send("It is running!");
+    res.send("YouTube Clone API is running!");
 });
 
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/channels', channelRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/comments', commentRoutes);
 
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/youtube_clone')
     .then(() => {
         console.log('Connected to MongoDB successfully!');
